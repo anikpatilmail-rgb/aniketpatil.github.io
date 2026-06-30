@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boomi Orchestrate — Aniket Patil</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1B2A;
+      --navy-mid: #1B3A5C;
+      --navy-light: #2E6096;
+      --accent: #C8A96E;
+      --white: #FFFFFF;
+      --off-white: #F7F8FA;
+      --muted: #6B7A8D;
+      --border: #D8E2ED;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,27,42,0.97);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 60px;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      color: var(--white);
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .nav-back {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--accent); }
+
+    /* HERO */
+    .story-hero {
+      background: var(--navy);
+      padding: 140px 5% 80px;
+    }
+    .story-hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .story-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .story-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .story-hero h1 em { font-style: italic; color: var(--accent); }
+    .story-meta {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .meta-item { }
+    .meta-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .meta-value {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 500;
+    }
+
+    /* STORY BODY */
+    .story-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 5%;
+    }
+    .story-section {
+      margin-bottom: 4rem;
+    }
+    .story-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .story-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--navy);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+    .story-section p {
+      color: #3A4A5C;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+    }
+    .story-section h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin: 2rem 0 0.6rem;
+    }
+
+    /* CALLOUT BOX */
+    .callout {
+      background: var(--off-white);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .callout p {
+      font-size: 1.05rem;
+      color: var(--navy);
+      font-style: italic;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* SCENARIO BOX */
+    .scenario {
+      background: var(--navy);
+      padding: 2rem 2.5rem;
+      margin: 2rem 0;
+    }
+    .scenario-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .scenario p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      margin-bottom: 0.8rem;
+    }
+    .scenario p:last-child { margin-bottom: 0; }
+
+    /* OWNERSHIP GRID */
+    .ownership-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+    .ownership-item {
+      background: var(--white);
+      padding: 1.5rem;
+    }
+    .ownership-item h4 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+    .ownership-item p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* UNLOCK GRID */
+    .unlock-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .unlock-item {
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .unlock-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .unlock-item h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .unlock-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* OUTCOME MILESTONES */
+    .milestones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--navy);
+      border: 1px solid var(--navy);
+      margin: 2rem 0;
+    }
+    .milestone {
+      background: var(--navy);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .milestone-stage {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .milestone h4 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .milestone p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+
+
+    /* EXTERNAL LINK */
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 0.8rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      margin: 1rem 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .external-link:hover { border-color: var(--navy-light); color: var(--navy-light); }
+
+    /* BACK LINK */
+    .back-section {
+      border-top: 1px solid var(--border);
+      padding: 3rem 5%;
+      text-align: center;
+      background: var(--off-white);
+    }
+    .back-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+      letter-spacing: 0.03em;
+    }
+    .back-link:hover { color: var(--navy-light); }
+
+    @media (max-width: 700px) {
+      .ownership-grid { grid-template-columns: 1fr; }
+      .milestones { grid-template-columns: 1fr; }
+      .story-meta { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Aniket Patil</a>
+  <a href="index.html#work" class="nav-back">← Back to work</a>
+</nav>
+
+<!-- HERO -->
+<div class="story-hero">
+  <div class="story-hero-inner">
+    <span class="story-eyebrow">Boomi · 2025 · Platform Product</span>
+    <h1>Boomi Orchestrate: Building the <em>connective tissue</em> of the agentic enterprise</h1>
+    <div class="story-meta">
+      <div class="meta-item">
+        <span class="meta-label">My Role</span>
+        <span class="meta-value">Product Owner</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Area Owned</span>
+        <span class="meta-value">Navigation · Workspace UI · Asset Connections · AI Integration</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Team Size</span>
+        <span class="meta-value">4 PMs · 3 EMs · 4 POs · 35+ Engineers</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="story-body">
+
+  <!-- PROBLEM -->
+  <div class="story-section">
+    <span class="story-section-label">The Problem</span>
+    <h2>Enterprises weren't failing at automation. They were failing at coordination.</h2>
+    <p>By the time Boomi's customers started deploying AI agents alongside their existing integrations, a new and painful pattern had emerged — the Automation Silo Trap. A company might run Boomi Integration to sync ERP data, Boomi Data Hub to maintain clean customer records, and Boomi Agentstudio to power an AI service bot. Each piece worked. None of them talked to each other.</p>
+    <p>The result was what we came to call "Agent Amnesia" — when an Inventory Agent handed a task to a Billing Agent, context disappeared. Customer history vanished. Business intent was lost in translation. IT teams were left manually stitching five separate systems together using humans as the bridge.</p>
+
+    <div class="callout">
+      <p>"Before Orchestrate, customers weren't just losing data — they were losing the intent of their business workflows. Integrations could move data from point A to point B, but they couldn't coordinate a smart, multi-step business conclusion across humans and AI."</p>
+    </div>
+
+    <h3>A Concrete Example: The Logistics Nightmare</h3>
+    <p>Imagine a global logistics company managing thousands of supply chain exceptions a day — shipments delayed by weather, customs holds, or price discrepancies. Before Orchestrate, they had five separate automation loops running simultaneously, completely blind to one another.</p>
+
+    <div class="scenario">
+      <span class="scenario-label">Before Orchestrate</span>
+      <p>Loop 1 (Integration): Pulling shipping data from IoT devices into a database.</p>
+      <p>Loop 2 (API Management): Exposing customs documents to freight forwarders.</p>
+      <p>Loop 3 (Data Hub): Keeping vendor profiles accurate.</p>
+      <p>Loop 4 (AI Agent A): A customer-facing chatbot tracking packages.</p>
+      <p>Loop 5 (AI Agent B): An internal operations agent forecasting supply chain risks.</p>
+      <p style="margin-top:1rem;color:rgba(255,255,255,0.55);font-style:italic;">When a storm delayed a major shipment, Loop 5 flagged the risk — but couldn't reach Loop 4. The customer chatbot kept saying everything was on time. Human operators had to manually pull data from the ERP, email the customs broker, copy-paste data into AI prompts, and alert the client themselves.</p>
+    </div>
+
+    <div class="scenario" style="margin-top:1rem;background:#1B3A5C;">
+      <span class="scenario-label">With Orchestrate</span>
+      <p>The company designs a macro-blueprint in natural language. Orchestrate sits above all five loops as the conductor. When IoT data flags a weather delay, Orchestrate instantly catches it — pulls clean vendor data from Data Hub, passes context to the operations AI, calculates a new delivery window, feeds the outcome to the customer chatbot to proactively alert the client, and routes a financial approval to a human manager if penalties apply. All automatically.</p>
+    </div>
+  </div>
+
+  <!-- SEE IT -->
+  <div class="story-section">
+    <span class="story-section-label">See It in Action</span>
+    <h2>How Orchestrate works</h2>
+    <p>The Boomi product page walks through the full capability — how the canvas works, how workflows are orchestrated, and how AI agents are brought into the execution layer.</p>
+    <a href="https://boomi.com/platform/orchestrate/" target="_blank" class="external-link">
+      See how Orchestrate works ↗
+    </a>
+  </div>
+
+  <!-- MY ROLE -->
+  <div class="story-section">
+    <span class="story-section-label">My Role</span>
+    <h2>What I owned</h2>
+    <p>Orchestrate was one of the most cross-functional products I've worked on — a team of 4 PMs, 3 EMs, 4 POs, and 35+ engineers, with senior leadership deeply involved throughout. Within that structure, I owned three specific areas:</p>
+
+
+
+    <div class="ownership-grid">
+      <div class="ownership-item">
+        <h4>Navigation & Workspace UI</h4>
+        <p>The canvas experience where users design, visualise, and manage orchestration workflows. Making a genuinely complex system feel approachable without hiding its power.</p>
+      </div>
+      <div class="ownership-item">
+        <h4>Asset Connections</h4>
+        <p>How users discover and connect Boomi's existing capabilities — integrations, APIs, data models, AI agents — onto the Orchestrate canvas. The bridge between what customers already had and what Orchestrate made possible.</p>
+      </div>
+      <div class="ownership-item">
+        <h4>AI Integration</h4>
+        <p>Connecting Boomi Agentstudio to the Orchestrate canvas — giving AI agents the power to execute multi-system processes while keeping humans in the loop.</p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- OUTCOME -->
+  <div class="story-section">
+    <span class="story-section-label">Outcome</span>
+    <h2>From internal concept to general availability</h2>
+    <p>Boomi Orchestrate progressed through three release milestones — each representing a gate of customer readiness and product maturity.</p>
+
+    <div class="milestones">
+      <div class="milestone">
+        <span class="milestone-stage">Phase 1</span>
+        <h4>Internal Access</h4>
+        <p>Product validated with internal teams and stakeholders before external exposure</p>
+      </div>
+      <div class="milestone">
+        <span class="milestone-stage">Phase 2</span>
+        <h4>Early Access</h4>
+        <p>Selected enterprise customers onboarded to validate real-world orchestration workflows</p>
+      </div>
+      <div class="milestone">
+        <span class="milestone-stage">Phase 3</span>
+        <h4>General Availability</h4>
+        <p>Launched as a core capability within the Boomi Enterprise Platform globally</p>
+      </div>
+    </div>
+
+    <p>For customers, the shift was fundamental — from businesses where humans bridge disconnected systems, to businesses where AI agents dynamically reason over data and Orchestrate executes their decisions across every corporate system.</p>
+
+    <div class="callout">
+      <p>Traditional Business → Humans manually move data between systems.<br>
+      Automated Business → Fixed integration pipelines move data automatically.<br>
+      Agentic Business → AI agents reason over data, and Orchestrate executes their decisions across all systems.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- BACK -->
+<div class="back-section">
+  <a href="index.html#work" class="back-link">← Back to all work</a>
+</div>
+
+</body>
+</html>
