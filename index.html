@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aniket Patil — Product Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0D1B2A;
+      --navy-mid:   #1B3A5C;
+      --navy-light: #2E6096;
+      --accent:     #C8A96E;
+      --white:      #FFFFFF;
+      --off-white:  #F7F8FA;
+      --muted:      #6B7A8D;
+      --border:     #D8E2ED;
+      --card-bg:    #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13, 27, 42, 0.97);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 60px;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      color: var(--white);
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 100px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 55%; height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(46,96,150,0.15) 100%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--navy);
+      padding: 0.8rem 1.8rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #d4b87a; transform: translateY(-1px); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      padding: 0.8rem 1.8rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-box {
+      background: rgba(13,27,42,0.9);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.6rem;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* SECTIONS */
+    section { padding: 90px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--navy);
+      margin-bottom: 3rem;
+      line-height: 1.2;
+    }
+    .section-title em { font-style: italic; color: var(--navy-light); }
+
+    /* ABOUT */
+    .about { background: var(--off-white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: #3A4A5C;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+    }
+    .about-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 1.8rem;
+    }
+    .tag {
+      background: var(--navy);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.75rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+    .about-sidebar {}
+    .sidebar-block {
+      border-left: 2px solid var(--accent);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      background: white;
+    }
+    .sidebar-block h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .sidebar-block p {
+      font-size: 0.9rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    /* METRICS */
+    .metrics { background: var(--navy); }
+    .metrics .section-title { color: var(--white); }
+    .metrics .section-eyebrow { color: var(--accent); }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.07);
+      margin-top: 0;
+    }
+    .metric-item {
+      background: var(--navy);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .metric-item:hover { background: var(--navy-mid); }
+    .metric-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+    }
+    .metric-val span { color: var(--accent); }
+    .metric-desc {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.6rem;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    /* CASE STUDIES */
+    .cases { background: var(--white); }
+    .case-card {
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .case-card:hover { box-shadow: 0 8px 40px rgba(13,27,42,0.1); }
+    .case-sidebar {
+      background: var(--navy);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .case-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.5rem;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+    }
+    .case-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--navy);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .case-sidebar h3 {
+      font-family: 'DM Serif Display', serif;
+      color: var(--white);
+      font-size: 1.35rem;
+      line-height: 1.3;
+    }
+    .case-company {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+    .case-body { padding: 2.5rem; }
+    .case-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .case-section h4 {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .case-section p {
+      font-size: 0.88rem;
+      color: #3A4A5C;
+      line-height: 1.6;
+    }
+    .case-outcome {
+      background: var(--off-white);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.2rem;
+      font-size: 0.88rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    /* TEARDOWN */
+    .teardown { background: var(--off-white); }
+    .teardown-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .teardown-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .teardown-card:hover { border-color: var(--navy-light); transform: translateY(-3px); }
+    .teardown-co {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .teardown-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+    .teardown-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .teardown-label {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy-light);
+      border-bottom: 1px solid var(--navy-light);
+      padding-bottom: 2px;
+    }
+
+    /* SKILLS */
+    .skills { background: var(--white); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-group {
+      border-top: 2px solid var(--navy);
+      padding-top: 1.2rem;
+    }
+    .skill-group h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .skill-list {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .skill-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      color: var(--navy);
+      padding: 0.3rem 0.75rem;
+      border-radius: 2px;
+    }
+
+    /* CONTACT */
+    .contact { background: var(--navy); text-align: center; }
+    .contact .section-title { color: var(--white); }
+    .contact .section-eyebrow { color: var(--accent); }
+    .contact-sub {
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .contact-links {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.8rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+      border-radius: 2px;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .contact-link.primary:hover { background: #d4b87a; }
+
+    /* FOOTER */
+    footer {
+      background: #060D15;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.04em;
+    }
+
+    /* SCROLL ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-stats { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .case-card { grid-template-columns: 1fr; }
+      .case-row { grid-template-columns: 1fr 1fr; }
+      .teardown-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .case-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Aniket<span>.</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#teardowns">Thinking</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="hero-eyebrow">Product Manager · AI & B2B SaaS</p>
+      <h1>Building products that <em>move</em> the needle</h1>
+      <p class="hero-desc">
+        5+ years owning end-to-end product delivery for enterprise platforms. Currently at Boomi, shipping AI-driven automation products for global customers. Open to Senior PM roles in Amsterdam and Singapore.
+      </p>
+      <div class="hero-cta">
+        <a href="#work" class="btn-primary">View Case Studies</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <span class="stat-num">5<span>+</span></span>
+        <span class="stat-label">Years in Product</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">6</span>
+        <span class="stat-label">Products Owned</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">50<span>+</span></span>
+        <span class="stat-label">Epics Delivered</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">3</span>
+        <span class="stat-label">AI Products Shipped</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <p class="section-eyebrow">About</p>
+    <h2 class="section-title">I build for <em>outcomes</em>, not output</h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I'm Aniket Patil, a Product Owner at Boomi where I lead the roadmap for enterprise integration and AI-automation platforms. My work sits at the intersection of complex technical systems and real customer pain — and I care deeply about the gap between shipping something and it actually working for the people using it.
+        </p>
+        <p>
+          Before Boomi, I owned six API-driven B2B products simultaneously at Zibtek, drove product strategy for ed-tech platforms at INSAID, and started my PM career optimizing roadmaps at Cerebro Teams. I hold a PSPO certification and am completing an MBA in AI & Machine Learning.
+        </p>
+        <p>
+          I'm currently open to Senior PM roles in Amsterdam and Singapore — particularly in fintech, data/AI platforms, and enterprise SaaS.
+        </p>
+        <div class="about-tags">
+          <span class="tag">End-to-End Ownership</span>
+          <span class="tag">API Products</span>
+          <span class="tag">Agentic AI</span>
+          <span class="tag">B2B SaaS</span>
+          <span class="tag">Cross-functional Delivery</span>
+          <span class="tag">PSPO Certified</span>
+        </div>
+      </div>
+      <div class="about-sidebar">
+        <div class="sidebar-block">
+          <h4>Currently</h4>
+          <p>Product Owner · Boomi<br><small style="color:#6B7A8D;font-size:0.82rem;">Jan 2025 – Present</small></p>
+        </div>
+        <div class="sidebar-block">
+          <h4>Education</h4>
+          <p>MBA · AI & Machine Learning<br><small style="color:#6B7A8D;font-size:0.82rem;">Dr. D.Y. Patil University</small></p>
+        </div>
+        <div class="sidebar-block">
+          <h4>Certification</h4>
+          <p>PSPO · Professional Scrum<br><small style="color:#6B7A8D;font-size:0.82rem;">Scrum.org</small></p>
+        </div>
+        <div class="sidebar-block">
+          <h4>Open To</h4>
+          <p>Amsterdam · Singapore · Remote</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics" id="metrics">
+  <div class="section-inner">
+    <p class="section-eyebrow">Impact</p>
+    <h2 class="section-title" style="color:white;margin-bottom:2rem;">Numbers that tell the story</h2>
+    <div class="metrics-grid fade-in">
+      <div class="metric-item">
+        <span class="metric-val">40<span>%</span></span>
+        <p class="metric-desc">Reduction in stakeholder alignment time via tighter PRD practices</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">30<span>%</span></span>
+        <p class="metric-desc">CSAT improvement across 6 B2B products at Zibtek</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">25<span>%</span></span>
+        <p class="metric-desc">Faster project turnaround through lifecycle management</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">15<span>%</span></span>
+        <p class="metric-desc">On-time delivery improvement via structured release planning</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">10<span>+</span></span>
+        <p class="metric-desc">Stakeholders aligned per PRD across engineering, compliance & commercial</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">50<span>+</span></span>
+        <p class="metric-desc">Epics translated across 6 API-driven B2B products</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">3</span>
+        <p class="metric-desc">Product teams impacted by org-wide Claude AI skills deployment</p>
+      </div>
+      <div class="metric-item">
+        <span class="metric-val">650<span>+</span></span>
+        <p class="metric-desc">Users with 25% engagement boost at INSAID via market-research-led product strategy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="cases" id="work">
+  <div class="section-inner">
+    <p class="section-eyebrow">Case Studies</p>
+    <h2 class="section-title">Three products, <em>real outcomes</em></h2>
+
+    <!-- Case 1 -->
+    <div class="case-card fade-in">
+      <div class="case-sidebar">
+        <div class="case-num">01</div>
+        <div>
+          <span class="case-tag">Agentic AI</span>
+          <h3>Agent Control Tower</h3>
+          <p class="case-company">Boomi · 2025</p>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-row">
+          <div class="case-section">
+            <h4>Problem</h4>
+            <p>Enterprise customers lacked visibility and control over their agentic automation workflows, leading to operational blind spots at scale.</p>
+          </div>
+          <div class="case-section">
+            <h4>My Role</h4>
+            <p>End-to-end product ownership from discovery through production — leading UX, Engineering, Content, and QA across global teams.</p>
+          </div>
+          <div class="case-section">
+            <h4>Process</h4>
+            <p>Customer discovery → PRD authoring → stakeholder alignment across 10+ functions → sprint planning → launch metrics definition.</p>
+          </div>
+          <div class="case-section">
+            <h4>Decisions Made</h4>
+            <p>Prioritized merchant activation metrics over feature count. Said no to 3 scope additions that didn't move adoption needle.</p>
+          </div>
+        </div>
+        <div class="case-outcome">
+          ✦ Outcome: Production launch delivered on schedule. Success measured by merchant adoption and activation rates post-launch, not just ship date.
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-card fade-in">
+      <div class="case-sidebar">
+        <div class="case-num">02</div>
+        <div>
+          <span class="case-tag">AI Deployment</span>
+          <h3>Claude AI Skills — Org-Wide Rollout</h3>
+          <p class="case-company">Boomi · 2025</p>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-row">
+          <div class="case-section">
+            <h4>Problem</h4>
+            <p>Product teams were losing hours weekly to repetitive planning tasks and edge case discovery during sprint ceremonies.</p>
+          </div>
+          <div class="case-section">
+            <h4>My Role</h4>
+            <p>Designed, built, and deployed Claude AI skills across the organization — owned adoption strategy and change management.</p>
+          </div>
+          <div class="case-section">
+            <h4>Process</h4>
+            <p>Identified pain points → designed AI workflow templates → piloted with one team → iterated → scaled to 3 product teams.</p>
+          </div>
+          <div class="case-section">
+            <h4>Decisions Made</h4>
+            <p>Chose embedded workflow over standalone tool to minimize friction. Focused on planning and edge-case discovery as first use cases.</p>
+          </div>
+        </div>
+        <div class="case-outcome">
+          ✦ Outcome: Measurable reduction in edge case discovery time across 3 product teams. Improved requirements quality and planning efficiency org-wide.
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="case-card fade-in">
+      <div class="case-sidebar">
+        <div class="case-num">03</div>
+        <div>
+          <span class="case-tag">Platform PM</span>
+          <h3>Boomi One Platform</h3>
+          <p class="case-company">Boomi · 2025</p>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-row">
+          <div class="case-section">
+            <h4>Problem</h4>
+            <p>Enterprise customers struggled to onboard and activate unified integration capabilities across fragmented workflows.</p>
+          </div>
+          <div class="case-section">
+            <h4>My Role</h4>
+            <p>Owned roadmap strategy for Boomi's unified API-based integration and automation platform — aligning 10+ stakeholders globally.</p>
+          </div>
+          <div class="case-section">
+            <h4>Process</h4>
+            <p>Stakeholder interviews → activation friction mapping → PRD → engineering alignment → phased rollout → adoption tracking.</p>
+          </div>
+          <div class="case-section">
+            <h4>Decisions Made</h4>
+            <p>Reduced time-to-clarity by ~40% through PRD discipline. Cut scope to focus on activation-blocking friction first.</p>
+          </div>
+        </div>
+        <div class="case-outcome">
+          ✦ Outcome: ~40% reduction in stakeholder alignment time. Improved enterprise customer onboarding efficiency and reduced activation friction across key merchant segments.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEARDOWNS -->
+<section class="teardown" id="teardowns">
+  <div class="section-inner">
+    <p class="section-eyebrow">Product Thinking</p>
+    <h2 class="section-title">How I think about <em>other products</em></h2>
+    <div class="teardown-grid fade-in">
+      <div class="teardown-card">
+        <p class="teardown-co">Adyen · Payments</p>
+        <h3>Reducing merchant activation friction</h3>
+        <p>Adyen's onboarding is powerful but complex. Merchants with simple use cases hit the same configuration walls as enterprise clients. A tiered activation flow — with progressive disclosure of complexity — could improve time-to-first-payment without sacrificing flexibility for advanced users.</p>
+        <span class="teardown-label">Opportunity Analysis</span>
+      </div>
+      <div class="teardown-card">
+        <p class="teardown-co">Databricks · Data Platform</p>
+        <h3>Simplifying runtime governance for non-technical stakeholders</h3>
+        <p>Databricks Runtime is powerful for engineers but opaque for data owners and compliance teams. A governance summary layer — translating cluster config and data access patterns into plain language audit views — would unlock value for the data steward persona currently underserved.</p>
+        <span class="teardown-label">Feature Concept</span>
+      </div>
+      <div class="teardown-card">
+        <p class="teardown-co">OKX · AI Trading</p>
+        <h3>Closing the gap between AI signal and trader action</h3>
+        <p>OKX's AI trading signals surface insights but don't reduce decision latency. A confidence-scored action queue — where AI signals are pre-mapped to executable trades awaiting one-tap approval — could bridge the gap between intelligence and execution for active traders.</p>
+        <span class="teardown-label">Product Concept</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-inner">
+    <p class="section-eyebrow">Skills & Stack</p>
+    <h2 class="section-title">What I bring to <em>the table</em></h2>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <h4>Product</h4>
+        <div class="skill-list">
+          <span class="skill-pill">Roadmap Ownership</span>
+          <span class="skill-pill">PRD Authoring</span>
+          <span class="skill-pill">Backlog Management</span>
+          <span class="skill-pill">Sprint Planning</span>
+          <span class="skill-pill">OKR Definition</span>
+          <span class="skill-pill">Prioritization</span>
+          <span class="skill-pill">Customer Discovery</span>
+          <span class="skill-pill">Go-to-Market</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Technical</h4>
+        <div class="skill-list">
+          <span class="skill-pill">API-based Products</span>
+          <span class="skill-pill">Agentic AI</span>
+          <span class="skill-pill">Claude AI</span>
+          <span class="skill-pill">MySQL</span>
+          <span class="skill-pill">Postman</span>
+          <span class="skill-pill">iPaaS Platforms</span>
+          <span class="skill-pill">Data Pipelines</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools</h4>
+        <div class="skill-list">
+          <span class="skill-pill">Jira</span>
+          <span class="skill-pill">Figma</span>
+          <span class="skill-pill">Mixpanel</span>
+          <span class="skill-pill">Amplitude</span>
+          <span class="skill-pill">Confluence</span>
+          <span class="skill-pill">Balsamiq</span>
+          <span class="skill-pill">Notion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h2 class="section-title">Open to the right <em>opportunity</em></h2>
+    <p class="contact-sub">
+      Looking for Senior PM roles in Amsterdam and Singapore, or remote opportunities with global companies. Available for a conversation — no long forms, just a quick email.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:anikpatil.mail@gmail.com" class="contact-link primary">✉ anikpatil.mail@gmail.com</a>
+      <a href="https://linkedin.com/in/aniketpatil" class="contact-link" target="_blank">↗ LinkedIn</a>
+      <a href="#" class="contact-link">↓ Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Aniket Patil · Built with intention
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
